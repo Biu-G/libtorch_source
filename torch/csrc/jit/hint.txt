@@ -1,0 +1,3 @@
+instructions: defined at instruction.h  Opcode / N / X
+
+stack: defined at interpreter.h  std::vector<c10::IValue>  // nonono  ITS from c10?? //IValue-> Aten/core/ivalue.h       pytorch/aten/src/ATen/core/ivalue.h

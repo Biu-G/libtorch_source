@@ -829,6 +829,25 @@ struct InterpreterStateImpl : c10::intrusive_ptr_target {
     }
   }
 
+	void printStack(Stack& stack) {
+		cout<< "***********************"<<endl;
+		cout << "stack START"<<endl;
+		for(auto i = stack.begin(); i != stack.end(); i++) {
+			cout<<*i<<endl;
+		}
+		cout<< "stack END" <<endl;
+		cout<<"***********************"<<endl;
+	}
+
+	void printInst(Instruction& inst) {
+		cout<<"#####################"<<endl;
+		cout<<"inst NOW"<<endl;
+		cout<<"op: "<<inst.op<<endl;
+		cout<<"X: "<<inst.X<<endl;
+		cout<<"N: "<<inst.N<<endl;
+		cout<<"####################"<<endl;
+	}
+	
   bool runImpl(Stack& stack) {
     // if we have never run before, then we might have to return the
     // stack when we suspend, record where it starts so we return the right
@@ -847,7 +866,9 @@ struct InterpreterStateImpl : c10::intrusive_ptr_target {
       while (true) {
 //         std::cout << "RUNNING ";
 //         frames.back().function->dump(std::cout, af.pc);
+		cout<<endl<<"<-PC->"<<af.pc<<endl;//print 1
         Instruction inst = af.instructions[af.pc];
+		printInst(inst);//print 2
         switch (inst.op) {
           case OP:
             af.operators[inst.X](stack);
@@ -1034,6 +1055,7 @@ struct InterpreterStateImpl : c10::intrusive_ptr_target {
             af = ActiveFrame(frames.back());
           } break;
         }
+	   printStack(stack);//print 3
       }
     } catch (std::exception& e) {
       frames.back().pc = af.pc;
