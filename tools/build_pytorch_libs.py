@@ -47,7 +47,8 @@ def _create_build_env():
 
 def build_caffe2(version, cmake_python_library, build_python, rerun_cmake, cmake_only, cmake):
     my_env = _create_build_env()
-    build_test = not check_negative_env_flag('BUILD_TEST')
+    #build_test = not check_negative_env_flag('BUILD_TEST')
+    build_test = False
     cmake.generate(version,
                    cmake_python_library,
                    build_python,

@@ -1,0 +1,82 @@
+why it fails now:
+
+
+now it's in Downloads/mkldnn_mac_??/include
+
+[ 11%] Built target pthreadpool
+[ 14%] Built target libprotobuf-lite
+[ 15%] Built target gtest
+[ 17%] Built target benchmark
+[ 18%] Built target fbgemm_avx2
+[ 22%] Built target fbgemm_generic
+[ 22%] Built target fbgemm_avx512
+[ 27%] Built target c10
+[ 33%] Built target asmjit
+[ 55%] Built target mkldnn
+[ 56%] Linking CXX shared library ../../lib/libcaffe2_module_test_dynamic.dylib
+[ 56%] Building CXX object modules/detectron/CMakeFiles/caffe2_detectron_ops.dir/batch_permutation_op.cc.o
+ld: library not found for -ltorch_library
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[2]: *** [lib/libcaffe2_module_test_dynamic.dylib] Error 1
+make[1]: *** [modules/module_test/CMakeFiles/caffe2_module_test_dynamic.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[ 56%] Building CXX object modules/detectron/CMakeFiles/caffe2_detectron_ops.dir/roi_pool_f_op.cc.o
+[ 58%] Built target cpuinfo
+[ 58%] Building CXX object modules/detectron/CMakeFiles/caffe2_detectron_ops.dir/sample_as_op.cc.o
+[ 71%] Built target libprotoc
+[ 71%] Building CXX object modules/detectron/CMakeFiles/caffe2_detectron_ops.dir/select_smooth_l1_loss_op.cc.o
+In file included from /Users/xiaoquanlun/pytorch/modules/detectron/batch_permutation_op.cc:19:
+In file included from /Users/xiaoquanlun/pytorch/caffe2/ideep/operators/operator_fallback_ideep.h:6:
+In file included from /Users/xiaoquanlun/pytorch/caffe2/ideep/ideep_utils.h:6:
+In file included from /Users/xiaoquanlun/pytorch/third_party/ideep/include/ideep.hpp:39:
+In file included from /Users/xiaoquanlun/pytorch/third_party/ideep/include/ideep/abstract_types.hpp:9:
+/Users/xiaoquanlun/pytorch/third_party/ideep/mkl-dnn/include/mkldnn.h:55:10: fatal error:
+      'mkldnn_version.h' file not found
+#include "mkldnn_version.h"
+         ^~~~~~~~~~~~~~~~~~
+1 error generated.
+make[2]: *** [modules/detectron/CMakeFiles/caffe2_detectron_ops.dir/batch_permutation_op.cc.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+
+
+
+
+ all in all??:: doont test_parallel for caffe2??/////
+why caffe2 fails:/now we modified .sh and do not make caffe's test
+
+[ 86%] Linking CXX executable ../bin/test_parallel
+[ 86%] Built target boolean_unmask_ops_test
+[ 86%] Built target conv_transpose_op_mobile_test
+[ 86%] Built target batch_matmul_op_test
+Scanning dependencies of target ssa_test
+Scanning dependencies of target scalar_test
+Scanning dependencies of target common_test
+Undefined symbols for architecture x86_64:
+  "___kmpc_fork_call", referenced from:
+      TestParallel_NestedParallel_Test::TestBody() in test_parallel.cpp.o
+      TestParallel_Exceptions_Test::TestBody() in test_parallel.cpp.o
+  "___kmpc_global_thread_num", referenced from:
+      TestParallel_NestedParallel_Test::TestBody() in test_parallel.cpp.o
+      TestParallel_Exceptions_Test::TestBody() in test_parallel.cpp.o
+  "___kmpc_push_num_threads", referenced from:
+      TestParallel_NestedParallel_Test::TestBody() in test_parallel.cpp.o
+      TestParallel_Exceptions_Test::TestBody() in test_parallel.cpp.o
+  "_omp_get_max_threads", referenced from:
+      TestParallel_NestedParallel_Test::TestBody() in test_parallel.cpp.o
+      TestParallel_Exceptions_Test::TestBody() in test_parallel.cpp.o
+  "_omp_get_num_threads", referenced from:
+      _.omp_outlined. in test_parallel.cpp.o
+      _.omp_outlined..124 in test_parallel.cpp.o
+      _.omp_outlined..126 in test_parallel.cpp.o
+  "_omp_get_thread_num", referenced from:
+      _.omp_outlined. in test_parallel.cpp.o
+      _.omp_outlined..124 in test_parallel.cpp.o
+      _.omp_outlined..126 in test_parallel.cpp.o
+  "_omp_in_parallel", referenced from:
+      TestParallel_NestedParallel_Test::TestBody() in test_parallel.cpp.o
+      TestParallel_Exceptions_Test::TestBody() in test_parallel.cpp.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+make[2]: *** [bin/test_parallel] Error 1
+make[1]: *** [caffe2/CMakeFiles/test_parallel.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
