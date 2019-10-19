@@ -28,7 +28,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
-
+using namespace std;
 namespace torch {
 namespace jit {
 
